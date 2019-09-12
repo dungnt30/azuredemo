@@ -14,6 +14,7 @@ namespace AzureSample.Controllers
         public IActionResult Index()
         {
             var connection = new SqlConnection("server=azurenvg.database.windows.net;database=azuredemonvg;uid=nvgadmin;pwd=Password@123");
+            var result = new List<string>() { };
 
             using (connection)
             {
@@ -26,16 +27,17 @@ namespace AzureSample.Controllers
                 {
                     while (reader.Read())
                     {
-                        Console.WriteLine("{0}\t{1}\t{2}", reader.GetInt32(0), reader.GetString(1), reader.GetString(2));
+                        result.Add($"{reader.GetInt32(0)}:{reader.GetString(1)}:{reader.GetString(2)}");
                     }
                 }
                 else
                 {
-                    Console.WriteLine("No rows found.");
+                    result.Add("No rows found.");
                 }
                 reader.Close();
             }
 
+            ViewBag.Result = result;
             return View();
         }
 
