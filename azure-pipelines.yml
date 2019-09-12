@@ -17,5 +17,5 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
-    projects: 'AzureDemo'
+    projects: 'AzureSample'
   displayName: 'dotnet build $(buildConfiguration)'
