@@ -13,7 +13,7 @@ namespace AzureSample.Controllers
     {
         public IActionResult Index()
         {
-            var connection = new SqlConnection("server=azurenvg.database.windows.net;Network Library=DBMSSOCN;database=azuredemonvg;uid=nvgadmin;pwd=Password@123");
+            var connection = new SqlConnection("server=azurenvg.database.windows.net;database=azuredemonvg;uid=nvgadmin;pwd=Password@123");
 
             using (connection)
             {
