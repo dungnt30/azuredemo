@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AzureSample.Models;
+using System.Data.SqlClient;
 
 namespace AzureSample.Controllers
 {
@@ -12,6 +13,29 @@ namespace AzureSample.Controllers
     {
         public IActionResult Index()
         {
+            var connection = new SqlConnection("server=azurenvg.database.windows.net;Network Library=DBMSSOCN;database=azuredemonvg;uid=nvgadmin;pwd=Password@123");
+
+            using (connection)
+            {
+                SqlCommand command = new SqlCommand("SELECT id, name, role FROM dbo.Admin", connection);
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        Console.WriteLine("{0}\t{1}\t{2}", reader.GetInt32(0), reader.GetString(1), reader.GetString(2));
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No rows found.");
+                }
+                reader.Close();
+            }
+
             return View();
         }
 
